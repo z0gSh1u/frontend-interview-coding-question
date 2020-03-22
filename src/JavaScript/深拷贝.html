@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>深拷贝</title>
+</head>
+
+<body>
+
+</body>
+<script>
+  let person = {
+    name: "Alice",
+    luckyNumbers: [233, 666, 99],
+    extraInfo: {
+      love: "Bob",
+      getAge: function () {
+        return 15
+      }
+    }
+  }
+  // 法1：JSON，问题：不可以拷贝 undefined，function 等复杂类型
+  let copy_person_method1 = JSON.parse(JSON.stringify(person))
+  console.log(copy_person_method1) // getAge方法丢失
+  // 证明深拷贝：
+  copy_person_method1.luckyNumbers.push(7)
+  console.log(person)
+
+  // 法2：Object.assign，问题：多层嵌套时，下面的还是只拷贝了引用
+  let copy_person_method2 = {}
+  Object.assign(copy_person_method2, person)
+  console.log(copy_person_method2)
+  // 证明不可靠深拷贝：
+  copy_person_method2.extraInfo.love = "Chris"
+  console.log(person)
+
+  // 法3：递归彻底处理，过于复杂
+</script>
+
+</html>

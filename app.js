@@ -1,0 +1,7 @@
+const express = require('express')
+const serveIndex = require('serve-index')
+const app = express()
+app.use(express.static(__dirname + '/src'))
+app.use(serveIndex(__dirname + '/src'))
+app.listen(4001)
+console.log("Listening 4001.")

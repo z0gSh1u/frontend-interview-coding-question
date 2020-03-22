@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>元素消失</title>
+  <style>
+    .demo {
+      width: 200px;
+      height: 200px;
+      background-color: orange;
+    }
+
+    .method1 {
+      background-color: red;
+      visibility: hidden;
+    }
+
+    .method2 {
+      background-color: blue;
+      display: none;
+    }
+
+    .method3 {
+      background-color: green;
+      opacity: 0;
+    }
+
+    .method4 {
+      background-color: yellow;
+      z-index: -1;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>请结合审查元素查看</h2>
+  <div class="demo method1">不可见，仍占据文档流位置，事件无效</div>
+  <div class="demo method2">不可见，不占据文档流位置</div>
+  <div class="demo method3">不透明度0，即100%透明，事件有效</div>
+  <div class="demo">
+    <div class="method4"></div> <!-- z-index为负，层叠到低高度，需要父元素遮挡 -->
+  </div>
+
+</body>
+
+</html>

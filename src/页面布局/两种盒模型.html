@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>两种盒模型</title>
+  <style>
+    .box {
+      background-color: skyblue;
+      width: 200px;
+      height: 100px;
+      margin: 30px;
+      padding: 10px;
+      border: 5px solid red;
+    }
+
+    .contentBox {
+      box-sizing: content-box;
+    }
+
+    .borderBox {
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>contentBox（标准盒模型）</h2>
+  <pre>
+    width = content width;
+    height = content height
+  </pre>
+  <div class="box contentBox">
+  </div>
+  <h2>borderBox（IE盒模型）</h2>
+  <pre>
+    width = border + padding + content width
+    heigth = border + padding + content heigth
+  </pre>
+  <div class="box borderBox">
+  </div>
+  <pre>设置border-box属性，宽高自动扣去padding和border的值，不需要手动计算content的值，以免超过给定的宽高</pre>
+</body>
+
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>防抖与节流</title>
+  <style>
+    .demo {
+      width: 200px;
+      height: 200px;
+      background-color: skyblue;
+    }
+  </style>
+</head>
+
+<body>
+  触发事件后在 n 秒内函数只能执行一次，如果在 n 秒内又触发了事件，则会重新计算函数执行时间
+  <div class="demo" id="div1">防抖Hover</div>
+  <hr>
+  连续触发事件但是在 n 秒中只执行一次函数
+  <div class="demo" id="div2">节流hover</div>
+  <hr>
+  <h2>区别在于是否重新等待（是否清除定时器）</h2>
+</body>
+<script>
+  // 防抖
+  function debounce(func, wait) {
+    let timeout // , firstTime = true
+    // 返回一个被包装的函数
+    return function () {
+      let that = this // 调用者
+      let args = arguments // 调用参数
+      // 首次调用不等待
+      // if (firstTime) {
+      //   firstTime = false
+      //   func.apply(that, args)
+      //   return
+      // }
+      // 如果目前在等待就重新等待
+      if (timeout) {
+        clearTimeout(timeout)
+      }
+      // 设置等待
+      timeout = setTimeout(() => {
+        func.apply(that, args)
+      }, wait)
+    }
+  }
+  document.getElementById('div1').onmousemove = debounce(() => {
+    console.log("div1 hover")
+  }, 1000)
+  // 节流
+  function throttle(func, wait) {
+    let timeout
+    return function () {
+      let that = this,
+        args = arguments
+      if (!timeout) {
+        timeout = setTimeout(() => {
+          func.apply(that, args)
+          clearTimeout(timeout)
+          timeout = null
+        }, wait)
+      }
+    }
+  }
+</script>
+
+</html>
