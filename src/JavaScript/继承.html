@@ -1,11 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>继承</title>
+  </head>
+  <body></body>
+  <script>
+    function Animal(_name) {
+      this.name = _name
+    }
+    Animal.prototype.sayName = function() {
+      console.log(this.name)
+    }
+    function Cat(_name, _tailLen) {
+      Animal.call(this, _name)
+      this.tailLen = _tailLen
+    }
+    // Cat.prototype = Animal.prototype // 造成浅拷贝
+    Cat.prototype = new Animal()
+    Cat.prototype.constructor = Cat
+
+    let panda = new Animal('panda')
+    panda.sayName()
+    console.log(panda instanceof Animal)
+    console.log(panda instanceof Cat)
+
+    let kitty = new Cat('kitty', 50)
+    kitty.sayName()
+    console.log(kitty instanceof Animal)
+  </script>
 </html>
