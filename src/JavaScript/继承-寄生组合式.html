@@ -3,10 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>继承</title>
+    <title>继承-寄生组合式</title>
   </head>
   <body></body>
   <script>
+    function createObject(proto) {
+      // 将 new xxx() 换成一个现有的对象（比如一个实例）
+      function F() {}
+      F.prototype = proto
+      return new F()
+    }
+    function inheritPrototype(subType, superType) {
+      // 只是为了拷贝的原型，其他不感兴趣
+      let p = createObject(superType.prototype)
+      p.constructor = subType
+      subType.prototype = p
+    }
+
     function Animal(_name) {
       this.name = _name
     }
@@ -17,9 +30,7 @@
       Animal.call(this, _name)
       this.tailLen = _tailLen
     }
-    // Cat.prototype = Animal.prototype // 造成浅拷贝
-    Cat.prototype = new Animal()
-    Cat.prototype.constructor = Cat
+    inheritPrototype(Cat, Animal)
 
     let panda = new Animal('panda')
     panda.sayName()
@@ -29,5 +40,6 @@
     let kitty = new Cat('kitty', 50)
     kitty.sayName()
     console.log(kitty instanceof Animal)
+    console.log(kitty instanceof Cat)
   </script>
 </html>

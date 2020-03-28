@@ -1,11 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>冒泡排序</title>
+  </head>
+  <body></body>
+  <script>
+    let list = [3, 5, 2, 1, 9],
+      temp,
+      swapFlag,
+      lastSwapPos = Number.MAX_VALUE
+
+    function bubble(arr) {
+      for (let i = 0; i < arr.length; i++) {
+        // 【优化1】swapFlag标记这趟是否发生交换，如果没有发生就可以退出了
+        swapFlag = false
+        let to = Math.min(arr.length - 1 - i, lastSwapPos)
+        for (let j = 0; j < to; j++) {
+          // arr.length - 1 - i，因为其他的数已经排好了
+          if (arr[j] > arr[j + 1]) {
+            temp = arr[j + 1]
+            arr[j + 1] = arr[j]
+            arr[j] = temp
+            swapFlag = true
+            // 【优化2】如果这轮的交换只发生到下标j，那么下轮肯定不会到j以后
+            lastSwapPos = j
+          }
+        }
+        if (!swapFlag) {
+          return arr
+        }
+      }
+      return arr
+    }
+
+    let res = bubble(list)
+    console.log(list)
+  </script>
 </html>
