@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>垂直居中</title>
+  <style>
+    .box {
+      width: 300px;
+      height: 200px;
+      background-color: greenyellow;
+      margin-bottom: 20px;
+    }
+    .inside {
+      width: 200px;
+      height: 50px;
+      background-color: skyblue;
+    }
+    .box1 {
+      position: relative;
+    }
+    .inside1 {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .inside2 {
+      position: absolute;
+      top: 50%;
+      margin-top: -25px;
+    }
+  </style>
+</head>
+<body>
+  <div class="box box1">
+    <div class="inside inside1">法1：绝对布局+transform自身平移</div>
+  </div>
+  <div class="box box1">
+    <div class="inside inside2">法2：绝对布局+负margin自身平移</div>
+  </div>
+  <p>法3：利用flex。请见"flex与自动margin"</p>
+</body>
+</html>

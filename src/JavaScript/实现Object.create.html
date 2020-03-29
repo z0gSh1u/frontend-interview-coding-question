@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>实现Object.create</title>
+  </head>
+  <body>
+    Object.create(prototype)创建一个继承了prototype的对象。<br />
+    prototype为null时这个对象甚至不继承Object。
+  </body>
+  <script>
+    function createObject(proto) {
+      function F() {}
+      F.prototype = proto
+      return new F()
+    }
+    let obj = createObject(Object)
+    console.log(obj instanceof Object)
+  </script>
+</html>

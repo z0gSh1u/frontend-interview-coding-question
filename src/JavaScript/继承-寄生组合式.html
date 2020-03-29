@@ -15,9 +15,9 @@
     }
     function inheritPrototype(subType, superType) {
       // 只是为了拷贝的原型，其他不感兴趣
-      let p = createObject(superType.prototype)
-      p.constructor = subType
-      subType.prototype = p
+      let p = createObject(superType.prototype) // 创建
+      p.constructor = subType // 修复
+      subType.prototype = p // 增强
     }
 
     function Animal(_name) {
