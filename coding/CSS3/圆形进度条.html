@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    .circleProgress {
+      width: 200px;
+      height: 200px;
+      position: relative;
+      border: 1px solid #bbb;
+    }
+
+    .wrapper {
+      width: 100px;
+      height: 200px;
+      position: absolute;
+      overflow: hidden;
+    }
+
+    .right {
+      right: 1px;
+    }
+
+    .left {
+      left: 1px;
+    }
+
+    .circle {
+      width: calc(200px - 20px * 2);
+      height: calc(200px - 20px * 2);
+      position: absolute;
+      border: 20px solid transparent;
+      border-radius: 50%;
+    }
+
+    .rightCircle {
+      border-top: 20px solid green;
+      border-right: 20px solid green;
+      right: 0;
+      animation: rotateRight 5s linear infinite;
+    }
+
+    .leftCircle {
+      border-bottom: 20px solid green;
+      border-left: 20px solid green;
+      left: 0;
+      animation: rotateLeft 5s linear infinite;
+    }
+
+
+    @keyframes rotateRight {
+      0% {
+        transform: rotate(45deg);
+      }
+
+      50%,
+      100% {
+        transform: rotate(225deg);
+      }
+    }
+
+    @keyframes rotateLeft {
+      0%,
+      50% {
+        transform: rotate(45deg);
+      }
+
+      100% {
+        transform: rotate(225deg);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="circleProgress">
+    <div class="wrapper right">
+      <div class="circle rightCircle"></div>
+    </div>
+    <div class="wrapper left">
+      <div class="circle leftCircle"></div>
+    </div>
+  </div>
+
+
+</body>
+
+<script></script>
+
+</html>

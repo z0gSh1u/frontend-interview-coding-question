@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>数组拍平</title>
+</head>
+
+<body>
+  <p>法1：三点展开；问题：深层无法拍平</p>
+  <p>法2：递归展开，可以处理任意层</p>
+  <p>法3：新特性，Array.prototype.flat</p>
+</body>
+<script>
+  let wait1 = [1, 2, [3, 4],
+    [5, [6, 7]]
+  ]
+  let wait2 = [1, 2, [3, 4]]
+
+  function flatten_3dot(arr) {
+    let res = []
+    arr.forEach(v => {
+      if (Array.isArray(v)) {
+        res.push(...v)
+      } else {
+        res.push(v)
+      }
+    })
+    return res
+  }
+
+  function flatten_recur(arr) {
+    let res = []
+    arr.forEach(v => {
+      if (Array.isArray(v)) {
+        res = res.concat(flatten_recur(v))
+      } else {
+        res.push(v)
+      }
+    })
+    return res
+  }
+  console.log(flatten_3dot(wait1))
+  console.log(flatten_3dot(wait2))
+  console.log(flatten_recur(wait1))
+  console.log(flatten_recur(wait2))
+</script>
+
+</html>

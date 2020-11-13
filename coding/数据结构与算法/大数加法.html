@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>大数加法</title>
+</head>
+
+<body></body>
+<script>
+  // 假设两个数都是正数
+  function hugeAdd(a, b) {
+    // 低位在前
+    if (a.length < b.length) {
+      [a, b] = [b, a]
+    }
+    let bitsA = a.split('').map(v => +v).reverse()
+    let bitsB = b.split('').map(v => +v).reverse()
+    let res = Array(bitsA.length).fill(0)
+    for (let i = 0; i < a.length; i++) {
+      let bi = i >= b.length ? 0 : bitsB[i]
+      res[i] += bitsA[i] + bi
+      if (res[i] >= 10) {
+        res[i] -= 10
+        res[i + 1] = 1
+      }
+    }
+    res = res.reverse().join('')
+    return res
+  }
+  console.log(hugeAdd('999999', '9999999999999999999999999999999999999999'))
+</script>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    function MyPromise(executorFunction) {
+      this.status = 'pending' // pending, fulfilled, rejected
+      this.resolvedData = null
+      this.resolvedCallbacks = []
+      this.rejectedReason = null
+      this.rejectedCallbacks = []
+      let that = this
+      function resolve(value) {
+        if (that.status == 'pending') {
+          that.status = 'fulfilled'
+          that.resolvedData = value
+          that.resolvedCallbacks.forEach(fn => {
+            fn.call(that, value)
+          })
+        }
+      }
+      function reject(reason) {
+        if (that.status == 'pending') {
+          that.status = 'rejected'
+          that.rejectedReason = reason
+          that.rejectedCallbacks.forEach(fn => {
+            fn.call(that, reason)
+          })
+        }
+      }
+      try {
+        executorFunction(resolve, reject)
+      } catch (e) {
+        reject(e)
+      }
+    }
+    MyPromise.prototype.then = function(onFulfilled, onRejected) {
+      onFulfilled = onFulfilled || function() {}
+      onRejected = onRejected || function() {}
+      if (this.status == 'fulfilled') {
+        onFulfilled(this.resolvedData)
+      } else if (this.status == 'rejected') {
+        onRejected(this.reason)
+      } else if (this.status == 'pending') {
+        this.resolvedCallbacks.push(onFulfilled)
+        this.rejectedCallbacks.push(onRejected)
+      }
+    }
+    console.log("证明不阻塞 1")
+    new MyPromise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(233)
+      }, 3000)
+    }).then(data => {
+      console.log(data)
+    })
+    console.log("证明不阻塞 2")
+  </script>
+</html>

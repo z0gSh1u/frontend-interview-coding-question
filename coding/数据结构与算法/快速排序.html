@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>快速排序</title>
+</head>
+
+<body>
+</body>
+<script>
+  let toSort = [23, 3, 4, 1, 22, 293, 64, 7, -4, -12]
+
+  // 好记的偷懒写法
+  // 问题：1、递归效率；2、filter多次遍历
+  function qsort(arr) {
+    if (!arr || arr.length < 2) {
+      return arr
+    }
+    let pivot = arr.pop() // 选择最后一个数为枢轴
+    let leftPart = arr.filter(v => v < pivot)
+    let rightPart = arr.filter(v => v >= pivot)
+    return [...qsort(leftPart), pivot, ...qsort(rightPart)]
+  }
+
+  let result = qsort(toSort)
+  console.log(result)
+</script>
+
+</html>

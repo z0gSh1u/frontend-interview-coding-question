@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>实现bind</title>
+</head>
+
+<body></body>
+<script>
+  function Bind(context, ...args) {
+    let self = this
+    return function () {
+      return self.call(context, ...args)
+    }
+  }
+  Function.prototype.bind = Bind
+
+  function Person(_name) {
+    this.name = _name
+    this.sayMyName = function (postfix) {
+      console.log(this.name + postfix)
+    }
+  }
+
+  let Person1 = new Person('ALEX')
+  let Person2 = new Person('BOB')
+  Person1.sayMyName()
+  Person2.sayMyName()
+  let sayBobName = Person1.sayMyName.bind(Person2, '?')
+  sayBobName()
+</script>
+
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>轮播图</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        height: 300px;
+        width: 500px;
+        position: relative;
+        overflow: hidden;
+      }
+      #banner {
+        position: absolute;
+        width: calc(500px * 6);
+      }
+      #banner li {
+        list-style: none;
+        float: left;
+      }
+      #banner li img {
+        width: 500px;
+        height: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" id="container">
+      <ul id="banner">
+        <li>
+          <img src="./assets/4.png" />
+        </li>
+        <li>
+          <img src="./assets/1.png" />
+        </li>
+        <li>
+          <img src="./assets/2.png" />
+        </li>
+        <li>
+          <img src="./assets/3.png" />
+        </li>
+        <li>
+          <img src="./assets/4.png" />
+        </li>
+        <li>
+          <img src="./assets/1.png" />
+        </li>
+      </ul>
+    </div>
+  </body>
+  <script>
+    let containerDom = document.getElementById('container')
+    let bannerDom = document.getElementById('banner')
+    let index = 1
+    bannerDom.style.left = '-500px'
+
+    function animate(offset) {
+      bannerDom.style.transition = '0.5s all ease-in-out'
+      bannerDom.style.left = `${offset * index * -1}px`
+    }
+
+    function next() {
+      if (index === 4) {
+        index = 0
+      }
+      index += 1
+      animate(500)
+    }
+    function prev() {
+      if (index === 1) {
+        index = 4
+      }
+      index -= 1
+      animate(500)
+    }
+    setInterval(() => {
+      next()
+    }, 1000)
+  </script>
+</html>

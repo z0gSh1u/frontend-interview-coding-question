@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>画任意扇形</title>
+  <style>
+    .pie {
+      width: 300px;
+      height: 300px;
+      position: relative;
+      border-radius: 50%;
+      background-color: skyblue;
+      overflow: hidden;
+    }
+
+    .slice {
+      overflow: hidden;
+      position: absolute;
+      transform-origin: bottom right;
+      width: 50%;
+      height: 50%;
+      top: 0;
+      left: 0;
+    }
+
+    .slice-1 {
+      background: black;
+      transform: rotateZ(90deg) skewY(30deg);
+    }
+    .slice-2 {
+      background: yellow;
+      transform: rotateZ(150deg) skewY(30deg);
+    }
+    .slice-3 {
+      background: black;
+      transform: rotateZ(210deg) skewY(30deg);
+    }
+    .slice-4 {
+      background: yellow;
+      transform: rotateZ(270deg) skewY(30deg);
+    }
+    .slice-5 {
+      background: black;
+      transform: rotateZ(330deg) skewY(30deg);
+    }
+    .slice-6 {
+      background: yellow;
+      transform: rotateZ(30deg) skewY(30deg);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="pie">
+    <div class="slice slice-1"></div>
+    <div class="slice slice-2"></div>
+    <div class="slice slice-3"></div>
+    <div class="slice slice-4"></div>
+    <div class="slice slice-5"></div>
+    <div class="slice slice-6"></div>
+  </div>
+
+</body>
+
+</html>

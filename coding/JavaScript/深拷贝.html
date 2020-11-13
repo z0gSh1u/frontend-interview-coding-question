@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>深拷贝</title>
+  </head>
+
+  <body></body>
+  <script>
+    let person = {
+      name: 'Alice',
+      luckyNumbers: [233, 666, 99],
+      extraInfo: {
+        love: 'Bob',
+        getAge: function() {
+          return 15
+        }
+      }
+    }
+    // 法1：JSON，问题：不可以拷贝 undefined，function 等复杂类型
+    let copy_person_method1 = JSON.parse(JSON.stringify(person))
+    console.log(copy_person_method1) // getAge方法丢失
+    // 证明深拷贝：
+    copy_person_method1.luckyNumbers.push(7)
+    console.log(person)
+    console.warn('=========================================')
+
+    // 法2：Object.assign，问题：多层嵌套时，下面的还是只拷贝了引用
+    let copy_person_method2 = {}
+    Object.assign(copy_person_method2, person)
+    console.log(copy_person_method2)
+    // 证明不可靠深拷贝：
+    copy_person_method2.extraInfo.love = 'Chris'
+    console.log(person)
+    console.warn('=========================================')
+
+    // 法3：递归彻底处理
+    // 这里提供一个只考虑部分情况的版本
+    function deepClone(target) {
+      let res
+      if (typeof target === 'object') {
+        if (Array.isArray(target)) {
+          // typeof 数组 是object
+          res = [...target.map(v => deepClone(v))]
+        } else if (target instanceof RegExp) {
+          res = new RegExp(target)
+        } else if (target === null) {
+          // typeof null 是object
+          res = null
+        } else {
+          res = {}
+          Object.keys(target).forEach(k => {
+            res[k] = deepClone(target[k])
+          })
+        }
+      } else {
+        // 基本类型
+        res = target
+      }
+      return res
+    }
+    let copy_person_method3 = deepClone(person)
+    console.log(copy_person_method3)
+    // 证明可靠深拷贝：
+    copy_person_method3.extraInfo.love = 'David'
+    console.log(person)
+  </script>
+</html>

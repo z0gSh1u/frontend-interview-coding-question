@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>私有成员</title>
+  </head>
+  <body></body>
+
+  <script>
+    function Person() {
+      var money
+      this.getMoney = function() {
+        return money
+      }
+      this.setMoney = function(to) {
+        money = to
+      }
+    }
+
+    let me = new Person()
+    me.setMoney(100)
+    console.log(me.getMoney())
+    console.log(me.money)
+  </script>
+</html>

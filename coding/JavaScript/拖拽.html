@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>拖拽</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        width: 1000px;
+        height: 1000px;
+        position: relative;
+      }
+      .box {
+        background-color: skyblue;
+        position: absolute;
+        cursor: move;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      class="box"
+      id="box"
+      style="width: 200px; height: 200px; left: 0; top: 0;"
+    ></div>
+  </body>
+  <script>
+    let boxDom = document.getElementById('box')
+    let startPoint = [],
+      endPoint = [],
+      diff = []
+    let ll = 0
+    let tt = 0
+    boxDom.onmousedown = function(evt) {
+      startPoint = [evt.offsetX, evt.offsetY]
+      boxDom.onmousemove = function(evt) {
+        endPoint = [evt.offsetX, evt.offsetY]
+        diff = [...endPoint.map((v, i) => v - startPoint[i])]
+        boxDom.style.left = `${ll + diff[0]}px`
+        boxDom.style.top = `${tt + diff[1]}px`
+        ll += +diff[0]
+        tt += +diff[1]
+      }
+    }
+    boxDom.onmouseup = function(evt) {
+      boxDom.onmousemove = null
+    }
+  </script>
+</html>

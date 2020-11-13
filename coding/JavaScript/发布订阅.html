@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>发布订阅</title>
+  </head>
+  <body></body>
+  <script>
+    function Observer() {
+      this.handlers = {}
+    }
+
+    // 存储处理函数
+    Observer.prototype.on = function(event, fn) {
+      if (!this.handlers[event]) {
+        this.handlers[event] = []
+      }
+      this.handlers[event].push(fn)
+    }
+
+    // 触发事件
+    Observer.prototype.emit = function(event) {
+      let myHandlers = this.handlers[event] || []
+      myHandlers.forEach(fn => {
+        let args = Array.prototype.slice.call(arguments, 1)
+        fn.apply(this, args) // 由observer本身调用fn
+      })
+    }
+
+    let obs = new Observer()
+    obs.on('event1', function(a, b) {
+      console.log('[event1] ' + a + ', ' + b)
+    })
+    obs.emit('event1', 10, 20)
+    obs.emit('event2')
+  </script>
+</html>

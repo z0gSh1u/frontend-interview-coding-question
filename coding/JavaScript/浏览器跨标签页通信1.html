@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>浏览器跨标签页通信1</title>
+</head>
+<body>
+  <p>请结合 浏览器跨标签页通信2.html 作接收者</p>
+  <button onclick="sendMsg()">sendMsg</button>
+</body>
+<script>
+
+  function sendMsg() {
+    localStorage.removeItem('_cross_tab')
+    localStorage.setItem('_cross_tab', "Hello World!")
+    alert('发送成功！')
+  }
+
+</script>
+</html>

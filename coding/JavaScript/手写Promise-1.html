@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    // 先回忆一下Promise的用法：
+    /*
+    new Promise(function(resolve, reject) {
+      // do something
+      // resolve(some data?)
+      // or reject()
+    }).then(res => {
+      // do something when fulfilled
+    })
+    */
+    function MyPromise(executorFunction) {
+      this.status = 'pending' // pending, fulfilled, rejected
+      this.resolvedData = null
+      this.rejectedReason = null
+      let that = this
+      function resolve(value) {
+        if (that.status == 'pending') {
+          that.status = 'fulfilled'
+          that.resolvedData = value
+        }
+      }
+      function reject(reason) {
+        if (that.status == 'pending') {
+          that.status = 'rejected'
+          that.rejectedReason = reason
+        }
+      }
+      try {
+        executorFunction(resolve, reject)
+      } catch (e) {
+        reject(e)
+      }
+    }
+    MyPromise.prototype.then = function(onFulfilled, onRejected) {
+      if (this.status == 'fulfilled') {
+        onFulfilled(this.resolvedData)
+      } else if (this.status == 'rejected') {
+        onRejected(this.reason)
+      } else {
+        // pending, do nothing
+      }
+    }
+    // 当然，目前的代码还不支持异步
+    new MyPromise((resolve, reject) => {
+      setTimeout(() => {
+        console.log('finished')
+        resolve(233)
+      }, 1000)
+    }).then(data => {
+      console.log(data)
+    })
+  </script>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>使用Proxy的数据劫持</title>
+  </head>
+  <body></body>
+  <script>
+    let obj = {
+      name: 'ZhangSan'
+    }
+    let newObj = new Proxy(obj, {
+      get: function(target, key) {
+        console.log('Getting...')
+        return target[key]
+      },
+      set: function(target, key, value) {
+        console.log('Setting ' + key + ' to ' + value + '...')
+        target[key] = value
+      }
+    })
+    console.log(newObj.name)
+    newObj.name = 'Lisi'
+    console.log(newObj.name)
+  </script>
+</html>
